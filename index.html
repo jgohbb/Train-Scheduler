@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train Scheduler</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1 id="title">Singapore Mass Rapid Train (MRT) Scheduler</h1>
+            <hr>
+            <h2>Current Time: <span id="currentTime"></span></h2>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        <h3>Current Train Schedule</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="train-schedule">
+                            <thead>
+                                <tr>
+                                    <th>Train Name</th>
+                                    <th>Destination</th>
+                                    <th>Frequency</th>
+                                    <th>Next Arrival</th>
+                                    <th>Minutes Away</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody id="train-data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add New Train</h3>
+                    </div>
+                </div>
+                <div class="panel-group">
+                    <form>
+                        <div class="form-group">
+                            <label>Train Name</label>
+                            <input type="text" class="form-control" id="train-name">
+                        </div>
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <input type="text" class="form-control" id="destination">
+                        </div>
+                        <div class="form-group">
+                            <label>First Train Time: HH:mm - military time</label>
+                            <input type="text" class="form-control" id="first-train">
+                        </div>
+                        <div class="form-group">
+                            <label>Frequency (mins)</label>
+                            <input type="text" class="form-control" id="frequency">
+                        </div>
+
+                        <button type="submit" class="btn btn default" id="submit">Add Train</button>
+                    </form>
+                </div>          
+            </div>
+            <div class="col-md-6">
+                <img src="assets/images/map.jpg" alt="Train Map">
+            </div>
+
+        </div>  
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+
+</body>
+</html>

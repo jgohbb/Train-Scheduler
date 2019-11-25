@@ -1,0 +1,16 @@
+.jumbotron {
+    background-color: darkred;
+    color: white;
+    margin: 10px 0 0 0;
+    padding: 20px;
+} 
+
+hr {
+    background-color: white;
+    width: 80%;
+}
+
+img {
+    margin: 15px 0 0 15px;
+    border: 4px solid darkblue;
+}
