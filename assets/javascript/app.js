@@ -11,4 +11,21 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+
+var database = firebase.database();
+
+$(document).ready(function() {
+
+    var trainName = "";
+    var destination = "";
+    var frequency = 0;
+    var arrivalTime = 0;
+    var minsAway = 0;
+
+    function currentTime() {
+      var 
+    }
+
+
+
+});

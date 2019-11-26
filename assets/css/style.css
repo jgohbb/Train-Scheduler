@@ -17,6 +17,8 @@ hr {
 img {
     margin: 30px 0 0 15px;
     border: 8px groove darkblue;
+    image-rendering: optimizeQuality;
+    box-shadow: 2px 2px 8px cyan;
 }
 
 .row {
@@ -35,4 +37,17 @@ h3, h2 {
 }
 label, input {
     font-weight: bold;
+}
+
+input {
+    box-shadow: 2px 2px 8px grey inset;
+}
+#submit {
+    background-color:darkred ;
+    color: white;
+    font-weight: bold;
+    border-radius: 3px;
+    box-shadow:2px 2px 10px black;
+    text-shadow: red;
+    padding: 5px 20px 5px 20px;
 }
