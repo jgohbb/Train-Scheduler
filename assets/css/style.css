@@ -1,12 +1,14 @@
 body {
     background-image: url(../images/background.jpg);
+    background-size: cover;
+
 }
 
 .jumbotron {
     background-color: darkred;
     color: white;
     margin: 10px 0 10px 0;
-    padding: 20px 0 20px 0;
+    padding: 15px 0 15px 0;
 } 
 
 hr {
@@ -15,7 +17,7 @@ hr {
 }
 
 img {
-    margin: 30px 0 0 15px;
+    margin: 30px 0 0 0;
     border: 8px groove darkblue;
     image-rendering: optimizeQuality;
     box-shadow: 2px 2px 8px cyan;
