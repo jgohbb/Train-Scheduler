@@ -8,6 +8,7 @@ var firebaseConfig = {
   appId: "1:801163293599:web:ac47e14c815e93a76603aa",
   measurementId: "G-9HP4MQP6QJ"
 };
+
 firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
@@ -24,6 +25,7 @@ $(document).ready(function() {
     var current = moment().format('llll');
     $("#current-datetime").html(current);
   };
+  currentTime();
 
   $("#submit").on("click", function(event) {
     event.preventDefault();
@@ -56,25 +58,22 @@ $(document).ready(function() {
     var key = childSnapshot.key;
 
     var firstTimeConverted = moment(inputFirstTrain, "HH:mm").subtract(1, "years");
-    var currentT = moment();
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
     var timeRemaining = diffTime % inputFrequency;
     var minsToArrive = inputFrequency - timeRemaining;
     var nextTrain = moment().add(minsToArrive, "minutes");
 
     var addNewRow = $("<tr>");
-    addNewRow.append($("<td>" + inputName + "</td>"));
+    addNewRow.append($("<td class='font-weight-bold'>" + inputName + "</td>"));
     addNewRow.append($("<td>" + inputDestination + "</td>"));
     addNewRow.append($("<td class='text-center'>" + inputFrequency + "</td>"));
     addNewRow.append($("<td class='text-center'>" + moment(nextTrain).format("LT") + "</td>"));
     addNewRow.append($("<td class='text-center'>" + minsToArrive + "</td>"));
-    addNewRow.append($("<td class='text-center'><button class='remove btn btn-danger btn-xs' data-key='" + key + "'>X</button></td>"));
+    addNewRow.append($("<td class='text-center font-weight-bold'><button class='remove btn btn-danger btn-xs' data-key='" + key + "'>X</button></td>"));
 
     $("#train-data").append(addNewRow);
   
   });
-
-  currentTime();
 
   $(document).on("click", ".remove", function() {
     keyref = $(this).attr("data-key");
@@ -84,6 +83,9 @@ $(document).ready(function() {
 
 });
 
+setInterval(function() {
+  window.location.reload();
+}, 30000);
 
 
 // trying to create drop down box that populate train name and destination

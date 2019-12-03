@@ -39,10 +39,12 @@ h3, h2 {
 }
 label, input {
     font-weight: bold;
+
 }
 
 input {
     box-shadow: 2px 2px 8px grey inset;
+
 }
 #submit {
     background-color:darkred ;
@@ -56,4 +58,8 @@ input {
 
 th:nth-child(n+3) {
     text-align: center;
+}
+
+th {
+    color: darkred !important;
 }
