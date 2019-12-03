@@ -53,3 +53,7 @@ input {
     text-shadow: red;
     padding: 5px 20px 5px 20px;
 }
+
+th:nth-child(n+3) {
+    text-align: center;
+}

@@ -1,5 +1,16 @@
-// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyAhTZMODNHWJjQtDVI2PSVcC3t0OhZ0G58",
+  authDomain: "trainscheduler-4ed12.firebaseapp.com",
+  databaseURL: "https://trainscheduler-4ed12.firebaseio.com",
+  projectId: "trainscheduler-4ed12",
+  storageBucket: "trainscheduler-4ed12.appspot.com",
+  messagingSenderId: "801163293599",
+  appId: "1:801163293599:web:ac47e14c815e93a76603aa",
+  measurementId: "G-9HP4MQP6QJ"
+};
+firebase.initializeApp(firebaseConfig);
 
+var database = firebase.database();
 
 $(document).ready(function() {
 
@@ -13,20 +24,6 @@ $(document).ready(function() {
     var current = moment().format('llll');
     $("#current-datetime").html(current);
   };
-
-  var firebaseConfig = {
-    apiKey: "AIzaSyAhTZMODNHWJjQtDVI2PSVcC3t0OhZ0G58",
-    authDomain: "trainscheduler-4ed12.firebaseapp.com",
-    databaseURL: "https://trainscheduler-4ed12.firebaseio.com",
-    projectId: "trainscheduler-4ed12",
-    storageBucket: "trainscheduler-4ed12.appspot.com",
-    messagingSenderId: "801163293599",
-    appId: "1:801163293599:web:ac47e14c815e93a76603aa",
-    measurementId: "G-9HP4MQP6QJ"
-  };
-  firebase.initializeApp(firebaseConfig);
-  
-  var database = firebase.database();
 
   $("#submit").on("click", function(event) {
     event.preventDefault();
@@ -51,11 +48,12 @@ $(document).ready(function() {
 
   });
 
-  database.ref().on("child_added", function(childSnapshot) {
+    database.ref().on("child_added", function(childSnapshot) {
     var inputName = childSnapshot.val().trainName;
     var inputDestination = childSnapshot.val().destination;
     var inputFirstTrain = childSnapshot.val().firstTime;
     var inputFrequency = childSnapshot.val().frequency;
+    var key = childSnapshot.key;
 
     var firstTimeConverted = moment(inputFirstTrain, "HH:mm").subtract(1, "years");
     var currentT = moment();
@@ -65,112 +63,26 @@ $(document).ready(function() {
     var nextTrain = moment().add(minsToArrive, "minutes");
 
     var addNewRow = $("<tr>");
-      addNewRow.append($("<td>" + childSnapshot.val().trainName + "</td>"));
-      addNewRow.append($("<td>" + childSnapshot.val().destination + "</td>"));
-      addNewRow.append($("<td class='text-center'>" + childSnapshot.val().frequency + "</td>"));
-      addNewRow.append($("<td class='text-center'>" + moment(nextTrain).format("LT") + "</td>"));
-      addNewRow.append($("<td class='text-center'>" + minsToArrive + "</td>"));
-    
-    
-      // $("<td>").text(inputName),
-      // $("<td>").text(inputDestination),
-      // $("<td>").text(inputFrequency),
-      // $("<td>").text(moment(nextTrain).format("hh:mm A")),
-      // $("<td>").text(minsToArrive)
-    // );
+    addNewRow.append($("<td>" + inputName + "</td>"));
+    addNewRow.append($("<td>" + inputDestination + "</td>"));
+    addNewRow.append($("<td class='text-center'>" + inputFrequency + "</td>"));
+    addNewRow.append($("<td class='text-center'>" + moment(nextTrain).format("LT") + "</td>"));
+    addNewRow.append($("<td class='text-center'>" + minsToArrive + "</td>"));
+    addNewRow.append($("<td class='text-center'><button class='remove btn btn-danger btn-xs' data-key='" + key + "'>X</button></td>"));
 
-    $("#train-data > tbody").append(addNewRow);
-    console.log(addNewRow);
+    $("#train-data").append(addNewRow);
+  
   });
 
   currentTime();
 
+  $(document).on("click", ".remove", function() {
+    keyref = $(this).attr("data-key");
+    database.ref().child(keyref).remove();
+    window.location.reload();
+  });
+
 });
-
-
-
-
-
-
-
-
-//   $(".form-field").on("keyup", function () {
-//     var trainData = $("#train-name").value().trim();
-//     var cityData = $("#destination").val().trim();
-//     var timeData = $("#first-train").val().trim();
-//     var frequencyData = $("#frequency").val().trim();
-
-//     sessionStorage.setItem("trainD", trainData);
-//     sessionStorage.setItem("cityD", cityData);
-//     sessionStorage.setItem("timeD", timeData);
-//     sessionStorage.setItem("frequencyD", frequencyData);
-//   });
-
-//   $("#train-name").val(sessionStorage.getItem("trainD"));
-//   $("#destination").val(sessionStorage.getItem("cityD"));
-//   $("first-train").val(sessionStorage.getItem("timeD"));
-//   $("frequency").val(sessionStorage.getItem("frequencyD"));
-
-//   $("submit").on("click", function (event) {
-//     event.preventDefault();
-
-//       trainName = $("#train-name").value().trim();
-//       destination = $("#destination").val().trim();
-//       firstTime = $("#first-train").val().trim();
-//       frequency = $("#frequency").val().trim();
-
-//       $(".form-field").val("");
-
-//       database.ref().push({
-//         trainName: trainName,
-//         destination: destination,
-//         frequency: frequency,
-//         firstTime: firstTime,
-//         dateAdded: firebase.database.ServerValue.TIMESTAMP
-//       });
-//       sessionStorage.clear();
-    
-
-//   });
-
-//   database.ref().on("child_added", function (childSnapshot) {
-//     var firstTimeConverted = moment(childSnapshot.val().firstTime, "hh:mm").subtract(1, "years");
-//     var timeDiff = moment().diff(moment(firstTimeConverted), "minutes");
-//     var timeRemain = timeDiff % childSnapshot.val().frequency;
-//     var minToArrival = childSnapshot.val().frequency - timeRemain;
-//     var nextTrain = moment().add(minToArrival, "minutes");
-//     var key = childSnapshot.key;
-
-//     var newrow = $("<tr>");
-//     newrow.append($("<td>" + childSnapshot.val().trainName + "</td>"));
-//     newrow.append($("<td>" + childSnapshot.val().destination + "</td>"));
-//     newrow.append($("<td class='text-center'>" + childSnapshot.val().frequency + "</td>"));
-//     newrow.append($("<td class='text-center'>" + moment(nextTrain).format("LT") + "</td>"));
-//     newrow.append($("<td class='text-center'>" + minToArrival + "</td>"));
-//     newrow.append($("<td class='text-center'><button class='arrival btn btn-danger btn-xs' data-key='" + key + "'>X</button></td>"));
-
-//     if (minToArrival < 6) {
-//       newrow.addClass("info");
-//     }
-
-//     $("#train-data").append(newrow);
-
-//   });
-
-//   $(document).on("click", ".arrival", function () {
-//     keyref = $(this).attr("data-key");
-//     database.ref().child(keyref).remove();
-//     window.location.reload();
-//   });
-
-//   // currentTime();
-
-//   setInterval(function () {
-//     window.location.reload();
-//   }, 60000);
-
-//   currentTime();
-
 
 
 
