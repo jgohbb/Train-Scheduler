@@ -64,8 +64,8 @@ $(document).ready(function() {
     var nextTrain = moment().add(minsToArrive, "minutes");
 
     var addNewRow = $("<tr>");
-    addNewRow.append($("<td class='font-weight-bold'>" + inputName + "</td>"));
-    addNewRow.append($("<td>" + inputDestination + "</td>"));
+    addNewRow.append($("<td class='font-weight-bold text-capitalize'>" + inputName + "</td>"));
+    addNewRow.append($("<td class='text-capitalize'>" + inputDestination + "</td>"));
     addNewRow.append($("<td class='text-center'>" + inputFrequency + "</td>"));
     addNewRow.append($("<td class='text-center'>" + moment(nextTrain).format("LT") + "</td>"));
     addNewRow.append($("<td class='text-center'>" + minsToArrive + "</td>"));
@@ -85,7 +85,7 @@ $(document).ready(function() {
 
 setInterval(function() {
   window.location.reload();
-}, 30000);
+}, 60000);
 
 
 // trying to create drop down box that populate train name and destination
